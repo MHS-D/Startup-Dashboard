@@ -3,7 +3,7 @@
 @section('content')
 
 <!--begin::Authentication - Sign-up -->
-<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(assets/media/illustrations/sigma-1/14-dark.png">
+<div id="divForm" class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed {{ config('settings.animation.main_animation') }}  {{ config('settings.animation.animationInClass') }} " style="background-image: url(assets/media/illustrations/sigma-1/14-dark.png">
     <!--begin::Content-->
     <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
         <!--begin::Logo-->
@@ -22,7 +22,7 @@
                     <!--end::Title-->
                     <!--begin::Link-->
                     <div class="text-gray-400 fw-bold fs-4">Already have an account?
-                        <a href="{{ route('login') }}" class="link-primary fw-bolder">Sign in here</a>
+                        <a href="javascript:void(0);" id="redirect" onclick=" return AnimateAndRedirect(route('login'))" class="link-primary fw-bolder">Sign in here</a>
                     </div>
                     <!--end::Link-->
                 </div>

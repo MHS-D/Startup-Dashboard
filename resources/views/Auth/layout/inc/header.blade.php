@@ -24,6 +24,10 @@
         {{-- Custom CSS --}}
         <link href="{{ asset('assets/css/MHS/loader.css')}}" rel="stylesheet" type="text/css" />
 
+            {{-- Animate --}}
+        <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css')}}" rel="stylesheet" type="text/css" />
+
+
 
 	</head>
 	<!--end::Head-->

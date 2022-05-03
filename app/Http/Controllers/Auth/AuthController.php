@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException as ValidationValidationException;
 
 class AuthController extends Controller
 {
@@ -34,8 +36,10 @@ class AuthController extends Controller
         // dd("helloo");
         $validated = $request->validated();
 
+        // throw_if(true,ValidationValidationException::withMessages(['bellooo']));
+
         return json_encode([
-            'success' => 'Doneeee'
+            'success' => 'Done Successfully',
         ]);
 
     }

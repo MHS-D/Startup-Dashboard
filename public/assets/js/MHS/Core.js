@@ -15,6 +15,24 @@ function Notification(type, message) {
     })
 }
 
+// Animate and redirect
+function AnimateAndRedirect(url) {
+    let form = document.getElementById("divForm");
+
+    var animationInClass = "{{config('settings.animation.animationInClass')}}";
+    var animationOutClass = "{{config('settings.animation.animationOutClass')}}";
+
+    console.log(animationInClass, animationOutClass)
+        // -> removing the class
+    form.classList.remove(animationInClass);
+    // -> and re-adding the class
+    form.classList.add(animationOutClass);
+
+    setTimeout(function() {
+        window.location = url;
+    }, 500);
+}
+
 // check empty validation
 function validData(data) {
     var check = true;
