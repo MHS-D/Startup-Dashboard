@@ -10,6 +10,7 @@ use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException as ValidationValidationException;
+use JavaScript;
 
 class AuthController extends Controller
 {
@@ -35,8 +36,6 @@ class AuthController extends Controller
     {
         // dd("helloo");
         $validated = $request->validated();
-
-        // throw_if(true,ValidationValidationException::withMessages(['bellooo']));
 
         return json_encode([
             'success' => 'Done Successfully',

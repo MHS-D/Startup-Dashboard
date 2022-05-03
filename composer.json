@@ -9,6 +9,7 @@
         "getsolaris/laravel-make-service": "^1.0",
         "guzzlehttp/guzzle": "^7.2",
         "itsgoingd/clockwork": "^5.1",
+        "laracasts/utilities": "^3.2",
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",

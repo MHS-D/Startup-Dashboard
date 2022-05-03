@@ -3,15 +3,6 @@
 @section('content')
 
 	<!--begin::Authentication - Password reset -->
-    <div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(assets/media/illustrations/sigma-1/14-dark.png">
-        <!--begin::Content-->
-        <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
-            <!--begin::Logo-->
-            <a href="../../demo2/dist/index.html" class="mb-12">
-                <img alt="Logo" src="assets/media/logos/logo-2.svg" class="h-40px" />
-            </a>
-            <!--end::Logo-->
-            <!--begin::Wrapper-->
             <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
                 <!--begin::Form-->
                 <form class="form w-100" novalidate="novalidate" id="kt_password_reset_form">
@@ -38,18 +29,12 @@
                             <span class="indicator-progress">Please wait...
                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </button>
-                        <a href="{{ route('login') }}" class="btn btn-lg btn-light-primary fw-bolder">Cancel</a>
+                        <a href="javascript:void(0);" onclick="return AnimateAndRedirect(route('login'))" class="btn btn-lg btn-light-primary fw-bolder">Cancel</a>
                     </div>
                     <!--end::Actions-->
                 </form>
                 <!--end::Form-->
             </div>
-            <!--end::Wrapper-->
-            @include('Auth.layout.inc.footer')
-
-        </div>
-        <!--end::Content-->
-    </div>
     <!--end::Authentication - Password reset-->
 
 @endsection

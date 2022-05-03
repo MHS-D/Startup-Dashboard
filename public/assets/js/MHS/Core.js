@@ -19,8 +19,8 @@ function Notification(type, message) {
 function AnimateAndRedirect(url) {
     let form = document.getElementById("divForm");
 
-    var animationInClass = "{{config('settings.animation.animationInClass')}}";
-    var animationOutClass = "{{config('settings.animation.animationOutClass')}}";
+    var animationInClass = js.animationInClass;
+    var animationOutClass = js.animationOutClass;
 
     console.log(animationInClass, animationOutClass)
         // -> removing the class
@@ -30,7 +30,7 @@ function AnimateAndRedirect(url) {
 
     setTimeout(function() {
         window.location = url;
-    }, 500);
+    }, 200);
 }
 
 // check empty validation
