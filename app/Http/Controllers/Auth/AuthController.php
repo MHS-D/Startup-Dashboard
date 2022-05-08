@@ -6,14 +6,24 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
-use Dotenv\Exception\ValidationException;
+use App\Services\Auth\AuthService;
+use App\Traits\GeneralTrait;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Validation\ValidationException as ValidationValidationException;
 use JavaScript;
+
 
 class AuthController extends Controller
 {
+    use GeneralTrait;
+
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
     public function loginView()
     {
         $data['page_title'] = 'Login';
@@ -34,13 +44,22 @@ class AuthController extends Controller
 
     public function Register(RegisterRequest $request)
     {
-        // dd("helloo");
-        $validated = $request->validated();
+        try{
+            DB::beginTransaction();
+            //store user
+            $user = $this->authService->storeUser($request->validated());
+            // assign Role to user
+            $this->authService->Role(config('settings.roles.names.userRole'),$user,config('settings.roles.actions.assignRole'));
+
+            DB::commit();
+        }catch(Exception $e){
+            DB::rollBack();
+            $this->ExceptionRedirect($e->getMessage());
+        }
 
         return json_encode([
-            'success' => 'Done Successfully',
+            'redirect_url' => route('login',['success' => 'Account created successfully'])
         ]);
-
     }
 
     public function ForgetPasswordView()

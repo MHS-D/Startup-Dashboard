@@ -18,12 +18,14 @@ class RolesSeeder extends Seeder
     {
         DB::table('roles')->truncate();
 
-        $roles = [
-            ['name' => 'superadmin'],
-            ['name' => 'user'],
-        ];
+        $roles = config('settings.roles.names');
 
-        foreach($roles as $role)
-        Role::create($role);
+        foreach ($roles as $role)
+        {
+            Role::create([
+                'name' => $role,
+            ]);
+        }
+
     }
 }

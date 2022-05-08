@@ -1,4 +1,6 @@
-/* Start Register Scripts */
+//=================================================================This file Uses Core.js==============================================================================//
+
+//================================================================= Start Register Scripts ==============================================================================//
 
 //on form submit ajax function
 $('#register-form').on('submit', function(e) {
@@ -15,8 +17,18 @@ $('#register-form').on('submit', function(e) {
 
     if (validData(FormData) && passwordConfirmed(FormData.password, FormData.password_confirmation)) {
 
-        postAjax(FormData, route('register.action'));
+        postAjax(FormData, route('register.action'), true);
     }
 });
 
-/* End Register Scripts */
+
+//check password confirmation
+function passwordConfirmed(password, password_confirmation) {
+    if (password != password_confirmation) {
+        Notification('error', 'Passwords Not Match');
+        return false;
+    }
+    return true;
+}
+
+//================================================================= End Register Scripts ==============================================================================//

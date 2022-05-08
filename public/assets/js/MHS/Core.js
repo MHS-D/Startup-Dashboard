@@ -30,7 +30,7 @@ function AnimateAndRedirect(url) {
 
     setTimeout(function() {
         window.location = url;
-    }, 200);
+    }, js.timer);
 }
 
 // check empty validation
@@ -46,15 +46,6 @@ function validData(data) {
     return check;
 }
 
-//check password confirmation
-function passwordConfirmed(password, password_confirmation) {
-    if (password != password_confirmation) {
-        Notification('error', 'Passwords Not Match');
-        return false;
-    }
-    return true;
-}
-
 //loader
 function loader(status) {
     if (status) {
@@ -67,7 +58,20 @@ function loader(status) {
 // loader in while page not ready yet
 $(document).ready(function() {
     loader(false);
+    AlertIfUrlHasNotification();
 });
+
+// Check Url Parameters
+function AlertIfUrlHasNotification() {
+
+    const params = new URLSearchParams(window.location.search);
+    // Check if we have the param
+    if (params.has("success")) {
+        toastr.success(params.get("success"));
+    } else if (params.has("danger")) {
+        toastr.error(params.get("danger"));
+    }
+}
 
 // Ajax error response function
 function ajax_error_display(xhr, textStatus, errorThrown) {
@@ -92,7 +96,7 @@ function ajax_error_display(xhr, textStatus, errorThrown) {
 }
 
 // Post Ajax
-function postAjax(formData, url) {
+function postAjax(formData, url, redirectToUrl = false) {
     loader(true);
     $.ajax({
         url: url,
@@ -102,7 +106,13 @@ function postAjax(formData, url) {
         dataType: 'json',
         data: formData,
         success: function(data) {
-            Notification('success', data.success);
+            if (redirectToUrl)
+                AnimateAndRedirect(data.redirect_url);
+
+            if (data.success) {
+                Notification('success', data.message);
+            }
+            return data;
         },
         error: function(xhr, textStatus, errorThrown) {
             ajax_error_display(xhr, textStatus, errorThrown);

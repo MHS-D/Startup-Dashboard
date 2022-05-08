@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         JavaScript::put([
             'animationInClass' => config('settings.animation.animationInClass'),
             'animationOutClass' => config('settings.animation.animationOutClass'),
+            'timer' => config('settings.animation.timer'),
         ]);
 
         Schema::defaultStringLength(191);
