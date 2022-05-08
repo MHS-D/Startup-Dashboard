@@ -17,7 +17,6 @@ class UserAccountSeeder extends Seeder
     public function run()
     {
         DB::table('users')->truncate();
-        DB::table('users');
 
         $user= User::create([
             'name' => 'admin',
@@ -28,6 +27,6 @@ class UserAccountSeeder extends Seeder
             'active'=>1,
         ]);
 
-        $user->assignRole('superadmin');
+        $user->assignRole(config('settings.roles.names.adminRole'));
     }
 }

@@ -26,7 +26,7 @@ class AuthService
             $user= User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
-                'username' => $data['username'],
+                'username' => $data['username'] ?? null,
                 'password' => Hash::make($data['password']),
                 'active' => $data['active'] ?? 0,
             ]);
@@ -40,17 +40,18 @@ class AuthService
     /**
      * Description: control user role (assign or remove)
      * @param
-     * User, Role
+     * User, Role, action
      */
     public function Role($role,$user,$action)
     {
+        // dd($role,$user,$action);
         try {
-            if(!in_array($action, config('settings.roles.actions')))
-                throw new Exception('Invalid action');
+            if(!in_array($action, config('settings.roles.actions')) || !in_array($role, config('settings.roles.names')))
+                throw new Exception('Invalid action or role');
 
-            if ($action == config('settings.roles.assignRole'))
+            if ($action == config('settings.roles.actions.assignRole'))
             {
-                if($user->getRoleNames())
+                if($user->getRoleNames()->count())
                 throw new Exception('User already has a role');
 
                 $user->assignRole($role);
@@ -67,7 +68,7 @@ class AuthService
      * @param
      * Email, Password
      */
-    public function checkCredentials($data)
+    public function sendVerificationEmail($email)
     {
         //
     }

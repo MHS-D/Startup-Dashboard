@@ -50,6 +50,8 @@ class AuthController extends Controller
             $user = $this->authService->storeUser($request->validated());
             // assign Role to user
             $this->authService->Role(config('settings.roles.names.userRole'),$user,config('settings.roles.actions.assignRole'));
+            // send verification email
+            $this->authService->sendVerificationEmail($user->email);
 
             DB::commit();
         }catch(Exception $e){
