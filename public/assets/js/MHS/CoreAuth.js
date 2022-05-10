@@ -5,6 +5,8 @@
 //on form submit ajax function
 $('#register-form').on('submit', function(e) {
     e.preventDefault();
+    var data = $(this).serialize();
+    console.log(data);
 
     let FormData = {
         'name': $('#name').val(),
@@ -12,6 +14,7 @@ $('#register-form').on('submit', function(e) {
         'password': $('#password').val(),
         'password_confirmation': $('#password_confirmation').val(),
         'terms': $('#terms').is(':checked'),
+        'g-recaptcha-response': $('#g-recaptcha-response').val()
     };
     console.log(FormData);
 

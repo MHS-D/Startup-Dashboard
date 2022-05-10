@@ -21,6 +21,7 @@ return [
             'removeRole' => 'remove',
         ],
     ],
+
 ];
 
 ?>

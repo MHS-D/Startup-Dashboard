@@ -71,6 +71,12 @@
                     <input class="form-control form-control-lg form-control-solid" type="password" placeholder=""  name="password_confirmation" id="password_confirmation" autocomplete="off" />
                 </div>
                 <!--end::Input group-->
+                <div class="form-group">
+                    <div class=" g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+                      @if ($errors->has('g-recaptcha-response'))
+                          <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span>
+                      @endif
+                </div>
                 <!--begin::Input group-->
                 <div class="fv-row mb-10">
                     <label class="form-check form-check-custom form-check-solid form-check-inline">

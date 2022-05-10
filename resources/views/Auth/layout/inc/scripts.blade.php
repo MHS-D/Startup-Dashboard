@@ -5,6 +5,10 @@
     <script src={{ asset("assets/js/scripts.bundle.js") }}></script>
     <!--end::Global Javascript Bundle-->
 
+    {{-- recaptcha --}}
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
+
 
     {{-- Custom Js --}}
     <script src={{ asset("assets/js/MHS/Core.js") }}></script>

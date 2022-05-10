@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\GoogleRecaptcha;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
@@ -28,6 +29,7 @@ class RegisterRequest extends FormRequest
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'terms' => 'required|exclude',
+            'g-recaptcha-response' => ['required' /* new GoogleRecaptcha     // this rule used only in production */]
         ];
     }
 
@@ -42,6 +44,7 @@ class RegisterRequest extends FormRequest
             'password.min' => 'Password must be at least 8 characters',
             'password.confirmed' => 'Password confirmation does not match',
             'terms.required' => 'You must agree to the terms and conditions',
+            'g-recaptcha-response.required' => 'You must verify that you are not a robot'
         ];
     }
 }
