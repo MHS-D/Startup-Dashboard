@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 use JavaScript;
 
 
@@ -32,7 +33,12 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $validated = $request->validated();
+        try{
+            $validated = $request->validated();
+
+        }catch(Exception $e){
+            throw ValidationException::withMessages([$e->getMessage()]);
+        }
 
     }
 
@@ -45,13 +51,15 @@ class AuthController extends Controller
     public function Register(RegisterRequest $request)
     {
         try{
+            $validated = $request->validated();
+
             DB::beginTransaction();
             //store user
-            $user = $this->authService->storeUser($request->validated());
+            $user = $this->authService->storeUser($validated);
             // assign Role to user
             $this->authService->Role(config('settings.roles.names.userRole'),$user,config('settings.roles.actions.assignRole'));
             // send verification email
-            $this->authService->sendVerificationEmail($user->email);
+            $this->authService->sendEmailWithToken($validated['email'],config('settings.email.action.verify'));
 
             DB::commit();
         }catch(Exception $e){
@@ -60,7 +68,7 @@ class AuthController extends Controller
         }
 
         return json_encode([
-            'redirect_url' => route('login',['success' => 'Account created successfully'])
+            'redirect_url' => route('login',['success' => 'Account created successfully, login to continue']),
         ]);
     }
 

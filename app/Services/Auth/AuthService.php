@@ -6,8 +6,11 @@ use App\Models\User;
 use App\Traits\GeneralTrait;
 use Exception;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
 
 /**
  * Class AuthService
@@ -66,11 +69,34 @@ class AuthService
       /**
       * Discription: check credientials for login
      * @param
-     * Email, Password
+     * Email, action type (reset or verify),
      */
-    public function sendVerificationEmail($email)
+    public function sendEmailWithToken($email,$action)
     {
-        //
+        try{
+            throw_if(!in_array($action, config('settings.email.action')), new Exception('Invalid Email action'));
+
+            $subject = $action == 'reset' ? config('settings.email.subject.reset') : config('settings.email.subject.verify');
+            $view = $action == 'reset' ? config('settings.email.view.reset') : config('settings.email.view.verify');
+
+            $token = Str::random(60);
+
+            DB::table('password_resets')->updateOrInsert([
+                'email' => $email,
+            ],
+                ['email' => $email, 'token' => $token, 'created_at' => now()]
+            );
+
+            Mail::send($view,['token' => $token], function($message) use ($email,$subject) {
+                      $message->from(env('MAIL_USERNAME'), env('APP_NAME'));
+                      $message->to($email);
+                      $message->subject($subject);
+            });
+
+        }catch(Exception $e){
+            // throw new Exception($e->getMessage());
+            throw new Exception('Error in sending email');
+        }
     }
 
 }

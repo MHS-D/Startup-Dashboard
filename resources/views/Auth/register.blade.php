@@ -77,12 +77,13 @@
                           <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span>
                       @endif
                 </div>
+                <br>
                 <!--begin::Input group-->
                 <div class="fv-row mb-10">
                     <label class="form-check form-check-custom form-check-solid form-check-inline">
                         <input class="form-check-input" id="terms" type="checkbox" name="terms" />
                         <span class="form-check-label fw-bold text-gray-700 fs-6">I Agree
-                            <a href="#" class="ms-1 link-primary">Terms and conditions</a>.</span>
+                            <a href="javascript:void(0);" onclick="return AnimateAndRedirect(route('register'))" class="ms-1 link-primary">Terms and conditions</a>.</span>
                     </label>
                 </div>
                 <!--end::Input group-->
