@@ -13,7 +13,7 @@ return [
     | Example: 'footer' or ['footer', 'bottom']
     |
     */
-    'bind_js_vars_to_this_view' => ['auth.login','auth.register','auth.forget-password'],
+    'bind_js_vars_to_this_view' => ['auth.login','auth.register','auth.forget-password','auth.reset-password'],
 
     /*
     |--------------------------------------------------------------------------

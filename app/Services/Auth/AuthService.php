@@ -4,6 +4,7 @@ namespace App\Services\Auth;
 
 use App\Models\User;
 use App\Traits\GeneralTrait;
+use Carbon\CarbonImmutable;
 use Exception;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +19,7 @@ use Illuminate\Support\Str;
  */
 class AuthService
 {
+    use GeneralTrait;
     /**
      * Discription: create a new user
      * @param
@@ -73,6 +75,7 @@ class AuthService
      */
     public function sendEmailWithToken($email,$action)
     {
+        // dd($email,$action);
         try{
             throw_if(!in_array($action, config('settings.email.action')), new Exception('Invalid Email action'));
 
@@ -96,6 +99,31 @@ class AuthService
         }catch(Exception $e){
             // throw new Exception($e->getMessage());
             throw new Exception('Error in sending email');
+        }
+    }
+
+    public function passwordReset($data)
+    {
+        try{
+            DB::beginTransaction();
+            // get token info
+            $info =DB::table('password_resets')->where('token', $data['token']);
+            $info_data = $info->first();
+
+            // check token expiry (1 hour from sending time)
+            throw_if( (CarbonImmutable::parse($info_data->created_at)->addHour() < now() || !$info_data), new Exception('Link Expired'));
+
+            //update password
+            $user = User::where('email',$info_data->email)->first();
+            $user->password = Hash::make($data['password']);
+            $user->save();
+
+            //delete token
+            $info->delete();
+            DB::commit();
+        }catch(Exception $e){
+            DB::rollBack();
+            throw new Exception($e->getMessage());
         }
     }
 

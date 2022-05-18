@@ -96,10 +96,10 @@ function ajax_error_display(xhr, textStatus, errorThrown) {
 }
 
 // Post Ajax
-function postAjax(formData, url, redirectToUrl = false) {
+function postAjax(formData, actionUrl, redirectToUrl = false) {
     loader(true);
     $.ajax({
-        url: url,
+        url: actionUrl,
         method: 'post',
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
         cache: false,
@@ -110,7 +110,7 @@ function postAjax(formData, url, redirectToUrl = false) {
                 AnimateAndRedirect(data.redirect_url);
 
             if (data.success) {
-                Notification('success', data.message);
+                Notification('success', data.success);
             }
             return data;
         },

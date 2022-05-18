@@ -1,12 +1,10 @@
 //=================================================================This file Uses Core.js==============================================================================//
 
-//================================================================= Start Register Scripts ==============================================================================//
+//================================================================= Register Scripts ==============================================================================//
 
 //on form submit ajax function
 $('#register-form').on('submit', function(e) {
     e.preventDefault();
-    var data = $(this).serialize();
-    console.log(data);
 
     let FormData = {
         'terms': $('#terms').is(':checked'),
@@ -34,17 +32,12 @@ function passwordConfirmed(password, password_confirmation) {
     return true;
 }
 
-//================================================================= End Register Scripts ==============================================================================//
 
-
-
-//================================================================= Start Login Scripts ==============================================================================//
+//================================================================= Login Scripts ==============================================================================//
 
 //on form submit ajax function
-$('#register-form').on('submit', function(e) {
+$('#login-form').on('submit', function(e) {
     e.preventDefault();
-    var data = $(this).serialize();
-    console.log(data);
 
     let FormData = {
         'email': $('#email').val(),
@@ -57,4 +50,52 @@ $('#register-form').on('submit', function(e) {
         postAjax(FormData, route('login.action'), true);
     }
 });
-//================================================================= End Login Scripts ==============================================================================//
+
+
+
+//================================================================= Forget-password Scripts ==============================================================================//
+
+//on form submit ajax function
+$('#forget_password').on('submit', function(e) {
+    e.preventDefault();
+
+    let FormData = {
+        'email': $('#email').val(),
+    };
+    console.log(FormData);
+
+    if (validData(FormData)) {
+
+        postAjax(FormData, route('forgetPassword.action'));
+        $('#email').val('');
+    }
+});
+
+
+
+//================================================================= password-reset Scripts ==============================================================================//
+
+//on form submit ajax function
+$('#password-reset').on('submit', function(e) {
+    e.preventDefault();
+
+    let FormData = {
+        'password': $('#password').val(),
+        'password_confirmation': $('#password_confirmation').val(),
+        'token': $('#token').val(),
+        'terms': $('#terms').is(':checked'),
+    };
+    console.log(FormData);
+
+    if (validData(FormData)) {
+
+        postAjax(FormData, route('resetPassword.action'), true);
+        $('#password').val('');
+        $('#password_confirmation').val('');
+    }
+});
+
+
+
+
+//================================================================= End password-reset Scripts ==============================================================================//
