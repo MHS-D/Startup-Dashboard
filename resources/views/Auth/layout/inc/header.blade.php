@@ -1,5 +1,5 @@
 	<!--begin::Head-->
-	<head><base href="../../../">
+	<head>
 		<title>{{ $page_title }}</title>
 		<meta charset="utf-8" />
 		<meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -12,17 +12,17 @@
 		<meta property="og:url" content="" />
 		<meta property="og:site_name" content="MHS-D" />
 		<link rel="canonical" href="" />
-		<link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico')}}" />
+		<link rel="shortcut icon" href="{{ asset('startup/assets/media/logos/favicon.ico')}}" />
 		<!--begin::Fonts-->
 		<link rel="stylesheet" href={{ asset("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700") }} />
 		<!--end::Fonts-->
 		<!--begin::Global Stylesheets Bundle(used by all pages)-->
-		<link href="{{ asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('startup/assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('startup/assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
 
         {{-- Custom CSS --}}
-        <link href="{{ asset('assets/css/MHS/loader.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('startup/assets/css/MHS/loader.css')}}" rel="stylesheet" type="text/css" />
 
             {{-- Animate --}}
         <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css')}}" rel="stylesheet" type="text/css" />

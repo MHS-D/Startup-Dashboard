@@ -7,6 +7,7 @@ use App\Traits\GeneralTrait;
 use Carbon\CarbonImmutable;
 use Exception;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -43,6 +44,46 @@ class AuthService
     }
 
     /**
+     * Description: check user credentials
+     * @param
+     * email, password
+     */
+    public function checkUserCredentials($credentials)
+    {
+        try{
+
+          if (Auth::attempt($credentials))
+            {
+                return auth()->user();
+            }
+            return false;
+
+        }catch(Exception $e){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    /**
+     * Description: redirect after authentication
+     * @param
+     * user
+     */
+    public function redirectAfterAuthentication($user)
+    {
+        try{
+            if($user->active == 1){
+                return self::ajaxRedirectUrl(route('dashboard'));
+            }else{
+                Auth::logout($user);
+                throw new Exception('Account Is Deactivated');
+            }
+
+        }catch(Exception $e){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    /**
      * Description: control user role (assign or remove)
      * @param
      * User, Role, action
@@ -68,7 +109,7 @@ class AuthService
         }
     }
 
-      /**
+    /**
       * Discription: check credientials for login
      * @param
      * Email, action type (reset or verify),
@@ -125,6 +166,13 @@ class AuthService
             DB::rollBack();
             throw new Exception($e->getMessage());
         }
+    }
+
+    public function ajaxRedirectUrl($url)
+    {
+        return json_encode([
+            'redirect_url' => $url,
+        ]);
     }
 
 }

@@ -4,7 +4,7 @@
 			<tr>
 				<td align="center" valign="center" style="text-align:center; padding: 40px">
 					<a href="https://keenthemes.com" rel="noopener" target="_blank">
-						<img alt="Logo" src="../../assets/media/logos/mail.svg" />
+						<img alt="Logo" src={{ asset("startup/assets/media/logos/mail.svg") }} />
 					</a>
 				</td>
 			</tr>

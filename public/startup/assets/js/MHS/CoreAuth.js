@@ -41,7 +41,7 @@ $('#login-form').on('submit', function(e) {
 
     let FormData = {
         'email': $('#email').val(),
-        'password': $('#name').val(),
+        'password': $('#password').val(),
     };
     console.log(FormData);
 
@@ -94,8 +94,3 @@ $('#password-reset').on('submit', function(e) {
         $('#password_confirmation').val('');
     }
 });
-
-
-
-
-//================================================================= End password-reset Scripts ==============================================================================//

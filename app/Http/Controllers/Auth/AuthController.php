@@ -38,6 +38,12 @@ class AuthController extends Controller
         try{
             $validated = $request->validated();
 
+            $user = $this->authService->checkUserCredentials($validated);
+
+            throw_if(!$user,new Exception('Invalid credentials'));
+
+            return $this->authService->redirectAfterAuthentication($user);
+
         }catch(Exception $e){
             throw ValidationException::withMessages([$e->getMessage()]);
         }
@@ -64,14 +70,14 @@ class AuthController extends Controller
             $this->authService->sendEmailWithToken($validated['email'],config('settings.email.action.verify'));
 
             DB::commit();
+
+            return $this->authService->ajaxRedirect(route('login',['success' => 'Account created successfully, login to continue']));
+
         }catch(Exception $e){
             DB::rollBack();
             $this->ExceptionRedirect($e->getMessage());
         }
 
-        return json_encode([
-            'redirect_url' => route('login',['success' => 'Account created successfully, login to continue']),
-        ]);
     }
 
     public function forgetPasswordView()
