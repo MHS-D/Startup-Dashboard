@@ -29,7 +29,6 @@ class AuthController extends Controller
     public function loginView()
     {
         $data['page_title'] = 'Login';
-        User::all();
         return view('auth.login', $data);
     }
 
@@ -132,5 +131,11 @@ class AuthController extends Controller
         return json_encode([
             'redirect_url' => route('login',['success' => 'Password reset successfully, login to continue']),
         ]);
+    }
+
+    public function logout()
+    {
+        $this->authService->logout();
+        return redirect()->route('login');
     }
 }

@@ -1,8 +1,8 @@
 	<!--begin::Javascript-->
-    <script>var hostUrl = "startup/assets/";</script>
+    <script>var hostUrl = "dashboard/";</script>
     <!--begin::Global Javascript Bundle(used by all pages)-->
-    <script src={{ asset("startup/assets/plugins/global/plugins.bundle.js") }}></script>
-    <script src={{ asset("startup/assets/js/scripts.bundle.js") }}></script>
+    <script src={{ asset("dashboard/plugins/global/plugins.bundle.js") }}></script>
+    <script src={{ asset("dashboard/js/scripts.bundle.js") }}></script>
     <!--end::Global Javascript Bundle-->
 
     {{-- recaptcha --}}
@@ -11,9 +11,9 @@
 
 
     {{-- Custom Js --}}
-    <script src={{ asset("startup/assets/js/MHS/Core.js") }}></script>
+    <script src={{ asset("dashboard/js/MHS/Core.js") }}></script>
     @if(request()->is('auth/*'));
-        <script src={{ asset("startup/assets/js/MHS/CoreAuth.js") }}></script>
+        <script src={{ asset("dashboard/js/MHS/CoreAuth.js") }}></script>
     @endif
 
     @if($errors->any())

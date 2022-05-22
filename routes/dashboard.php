@@ -10,8 +10,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// dashboard Home
-Route::get('Home', [DashboardController::class,'index'])->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+
+    // dashboard Home
+    Route::get('Home', [DashboardController::class,'index'])->name('dashboard');
+});
 
 
 

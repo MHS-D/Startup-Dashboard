@@ -143,6 +143,11 @@ class AuthService
         }
     }
 
+    /**
+     * Description: reset user password
+     * @param
+     * token, password
+     */
     public function passwordReset($data)
     {
         try{
@@ -168,11 +173,28 @@ class AuthService
         }
     }
 
+    /**
+     * Description: redirect url after ajax
+     * @param
+     * url,
+     */
     public function ajaxRedirectUrl($url)
     {
         return json_encode([
             'redirect_url' => $url,
         ]);
+    }
+
+    /**
+      * Discription: logout user
+     */
+    public function logout()
+    {
+        try{
+            Auth::logout();
+        }catch(Exception $e){
+            throw new Exception($e->getMessage());
+        }
     }
 
 }

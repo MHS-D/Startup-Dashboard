@@ -4,8 +4,8 @@ return [
 
     'animation' => [
         'main_animation' => 'animate__animated',
-        'animationInClass' => 'animate__bounceInLeft',
-        'animationOutClass' => 'animate__fadeOutTopRight',
+        'animationInClass' => request()->is('dashboard/*') ? 'animate__backInUp' : 'animate__bounceInLeft',
+        'animationOutClass' => request()->is('dashboard/*') ? 'animate__backOutDown' : 'animate__fadeOutTopRight',
         'timer' => 500,
     ],
 
