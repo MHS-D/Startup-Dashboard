@@ -1,10 +1,10 @@
 // validation  alert
 function Notification(type, message) {
-    let animationIn = type == 'success' ? 'animate__bounceIn' : 'animate__shakeX';
-    let animationOut = type == 'success' ? 'animate__bounceOut' : 'animate__fadeOutUp';
+    let animationIn = type != 'error' ? 'animate__bounceIn' : 'animate__shakeX';
+    let animationOut = type != 'error' ? 'animate__bounceOut' : 'animate__fadeOutUp';
     Swal.fire({
         icon: type,
-        title: type == 'error' ? 'Oops...' : 'Success',
+        title: type == 'error' ? 'Oops...' : (type == 'info' ? 'info' : 'Success'),
         text: message,
         showClass: {
             popup: 'animate__animated ' + animationIn
@@ -15,8 +15,13 @@ function Notification(type, message) {
     })
 }
 
+//coming soon
+function comingSoon() {
+    Notification('info', 'Coming Soon');
+}
+
 // Animate and redirect
-function AnimateAndRedirect(url) {
+function AnimateAndRedirect(url, isDashboard = false) {
     let form = document.getElementById("divForm");
 
     var animationInClass = js.animationInClass;

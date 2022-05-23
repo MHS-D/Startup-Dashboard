@@ -36,10 +36,11 @@ class AuthController extends Controller
     {
         try{
             $validated = $request->validated();
-
             $user = $this->authService->checkUserCredentials($validated);
 
             throw_if(!$user,new Exception('Invalid credentials'));
+
+            session()->put('role', $user->role);
 
             return $this->authService->redirectAfterAuthentication($user);
 

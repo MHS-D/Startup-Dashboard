@@ -6,47 +6,29 @@
                         <!--begin::Page title-->
                         <div class="page-title d-flex flex-column me-3">
                             <!--begin::Title-->
-                            <h1 class="d-flex text-white fw-bolder my-1 fs-3">Users List</h1>
+                            <h1 class="d-flex text-white fw-bolder my-1 fs-3">{{ ucfirst($page_title) }}</h1>
                             <!--end::Title-->
                             <!--begin::Breadcrumb-->
                             <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                                 <!--begin::Item-->
                                 <li class="breadcrumb-item text-white opacity-75">
-                                    <a href="../../demo2/dist/index.html" class="text-white text-hover-primary">Home</a>
+                                    <a href="javascript:void(0);" onclick="return AnimateAndRedirect(route('dashboard'))" class="text-white text-hover-primary">Home</a>
                                 </li>
                                 <!--end::Item-->
-                                <!--begin::Item-->
+
+                                @if(!request()->is('dashboard/Home'))
+                                     <!--begin::Item-->
                                 <li class="breadcrumb-item">
                                     <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
                                 </li>
                                 <!--end::Item-->
-                                <!--begin::Item-->
-                                <li class="breadcrumb-item text-white opacity-75">Apps</li>
-                                <!--end::Item-->
-                                <!--begin::Item-->
-                                <li class="breadcrumb-item">
-                                    <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+                                 <!--begin::Item-->
+                                 <li class="breadcrumb-item text-white opacity-75">
+                                    <a href="javascript:void(0);" class="text-white text-hover-primary">{{ $page_title }}</a>
                                 </li>
                                 <!--end::Item-->
-                                <!--begin::Item-->
-                                <li class="breadcrumb-item text-white opacity-75">User Management</li>
-                                <!--end::Item-->
-                                <!--begin::Item-->
-                                <li class="breadcrumb-item">
-                                    <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
-                                </li>
-                                <!--end::Item-->
-                                <!--begin::Item-->
-                                <li class="breadcrumb-item text-white opacity-75">Users</li>
-                                <!--end::Item-->
-                                <!--begin::Item-->
-                                <li class="breadcrumb-item">
-                                    <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
-                                </li>
-                                <!--end::Item-->
-                                <!--begin::Item-->
-                                <li class="breadcrumb-item text-white opacity-75">Users List</li>
-                                <!--end::Item-->
+                                @endif
+
                             </ul>
                             <!--end::Breadcrumb-->
                         </div>
