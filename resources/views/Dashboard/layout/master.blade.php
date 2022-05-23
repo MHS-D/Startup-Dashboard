@@ -26,7 +26,6 @@
                 </div>
                 <!--end::Container-->
 
-
                 @include('Dashboard.layout.inc.footer')
             </div>
             <!--end::Wrapper-->

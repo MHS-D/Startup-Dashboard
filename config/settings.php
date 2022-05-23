@@ -1,11 +1,13 @@
 <?php
 
+use Illuminate\Http\Request;
+
 return [
 
     'animation' => [
         'main_animation' => 'animate__animated',
-        'animationInClass' => request()->is('dashboard/*') ? 'animate__backInUp' : 'animate__bounceInLeft',
-        'animationOutClass' => request()->is('dashboard/*') ? 'animate__backOutDown' : 'animate__fadeOutTopRight',
+        'animationInClass' => '',
+        'animationOutClass' => '',
         'timer' => 500,
     ],
 
