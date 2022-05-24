@@ -64,14 +64,12 @@ class AuthController extends Controller
             DB::beginTransaction();
             //store user
             $user = $this->authService->storeUser($validated);
-            // assign Role to user
-            $this->authService->Role(config('settings.roles.names.userRole'),$user,config('settings.roles.actions.assignRole'));
-            // send verification email
-            $this->authService->sendEmailWithToken($validated['email'],config('settings.email.action.verify'));
+            // assign Role to user and send verification email
+            $this->authService->Role(config('settings.roles.names.userRole'),$user,config('settings.roles.actions.assignRole'))
+                              ->sendEmailWithToken($validated['email'],config('settings.email.action.verify')); // chaining functions
 
             DB::commit();
-
-            return $this->authService->ajaxRedirect(route('login',['success' => 'Account created successfully, login to continue']));
+            return $this->authService->ajaxRedirectUrl(route('errors.unverified',['email' => $user->email]));
 
         }catch(Exception $e){
             DB::rollBack();
@@ -138,5 +136,33 @@ class AuthController extends Controller
     {
         $this->authService->logout();
         return redirect()->route('login');
+    }
+
+    public function resendEmail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+        ]);
+
+        try{
+            $this->authService->sendEmailWithToken($request->email,$request->action);
+        }catch(Exception $e){
+            $this->ExceptionRedirect($e->getMessage());
+        }
+
+        return json_encode([
+            'success' =>'Email sent successfully',
+        ]);
+    }
+
+    public function verifyAccount($token)
+    {
+        try{
+            $this->authService->verifyAccount($token);
+        }catch(Exception $e){
+            $this->ExceptionRedirect($e->getMessage());
+        }
+
+        return redirect()->route('login',['success' => 'Account verified successfully, login to continue']);
     }
 }

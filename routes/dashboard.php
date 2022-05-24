@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','isVerified'])->group(function () {
 
     // dashboard Home
     Route::get('Home', [DashboardController::class,'index'])->name('dashboard');

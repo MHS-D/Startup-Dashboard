@@ -23,9 +23,6 @@ Route::middleware(['AuthUser'])->group(function () {
     Route::get('Register', [AuthController::class,'registerView'])->name('register');
     Route::post('Register-action', [AuthController::class,'register'])->name('register.action');
 
-    // email verification
-    Route::post('verify-account', [AuthController::class,'verifyAccount'])->name('auth.verifyEmail');
-
     //Forget Password
     Route::get('Forget-Password', [AuthController::class,'forgetPasswordView'])->name('forgetPassword');
     Route::post('Forget-Password-action', [AuthController::class,'forgetPassword'])->name('forgetPassword.action');
@@ -35,3 +32,9 @@ Route::middleware(['AuthUser'])->group(function () {
     Route::post('Reset-Password-action', [AuthController::class,'resetPassword'])->name('resetPassword.action');
 
 });
+
+    // resend email
+    Route::post('Resend-Email', [AuthController::class,'resendEmail'])->name('auth.resendEmail');
+    // email verification
+    Route::get('verify-account/{token}', [AuthController::class,'verifyAccount'])->name('auth.verifyEmail');
+

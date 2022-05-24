@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'active',
     ];
 
     /**
@@ -47,5 +48,10 @@ class User extends Authenticatable
     public function getRoleAttribute()
     {
         return $this->roles()->first()->name;
+    }
+
+    public function isVerified()
+    {
+        return $this->email_verified_at ? true : false;
     }
 }

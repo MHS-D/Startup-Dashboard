@@ -94,3 +94,24 @@ $('#password-reset').on('submit', function(e) {
         $('#password_confirmation').val('');
     }
 });
+
+
+
+
+//================================================================= Resend-Email Scripts ==============================================================================//
+
+//on form submit ajax function
+$('#resend-verification-email').on('click', function(e) {
+    e.preventDefault();
+
+    let FormData = {
+        'email': $(this).attr('email'),
+        'action': 'verify',
+    };
+    console.log(FormData);
+
+    if (validData(FormData)) {
+
+        postAjax(FormData, route('auth.resendEmail'));
+    }
+});

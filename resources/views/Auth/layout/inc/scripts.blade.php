@@ -12,9 +12,7 @@
 
     {{-- Custom Js --}}
     <script src={{ asset("dashboard/js/MHS/Core.js") }}></script>
-    @if(request()->is('auth/*'));
-        <script src={{ asset("dashboard/js/MHS/CoreAuth.js") }}></script>
-    @endif
+    <script src={{ asset("dashboard/js/MHS/CoreAuth.js") }}></script>
 
     @if($errors->any())
         @foreach ($errors->all() as $error)

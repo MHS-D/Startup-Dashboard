@@ -4,6 +4,7 @@ namespace App\Services\Auth;
 
 use App\Models\User;
 use App\Traits\GeneralTrait;
+use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Exception;
 use GuzzleHttp\Psr7\Request;
@@ -34,7 +35,7 @@ class AuthService
                 'email' => $data['email'],
                 'username' => $data['username'] ?? null,
                 'password' => Hash::make($data['password']),
-                'active' => $data['active'] ?? 0,
+                'active' => $data['active'] ?? 1,
             ]);
             return $user;
 
@@ -72,7 +73,15 @@ class AuthService
     {
         try{
             if($user->active == 1){
-                return self::ajaxRedirectUrl(route('dashboard'));
+
+                $route = route('dashboard');
+
+                if(!self::isVerified($user))
+                {
+                    $route = route('errors.unverified');
+                }
+
+                return self::ajaxRedirectUrl($route);
             }else{
                 Auth::logout($user);
                 throw new Exception('Account Is Deactivated');
@@ -107,6 +116,8 @@ class AuthService
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
+
+        return $this;
     }
 
     /**
@@ -116,7 +127,6 @@ class AuthService
      */
     public function sendEmailWithToken($email,$action)
     {
-        // dd($email,$action);
         try{
             throw_if(!in_array($action, config('settings.email.action')), new Exception('Invalid Email action'));
 
@@ -124,6 +134,10 @@ class AuthService
             $view = $action == 'reset' ? config('settings.email.view.reset') : config('settings.email.view.verify');
 
             $token = Str::random(60);
+
+            $check = DB::table('password_resets')->where('email',$email)->first();
+
+            throw_if($check && CarbonImmutable::parse($check->created_at)->addMinutes(5) > now(), new Exception('You can request a new link in 5 minutes'));
 
             DB::table('password_resets')->updateOrInsert([
                 'email' => $email,
@@ -138,9 +152,11 @@ class AuthService
             });
 
         }catch(Exception $e){
-            // throw new Exception($e->getMessage());
-            throw new Exception('Error in sending email');
+            throw new Exception($e->getMessage());
+            // throw new Exception('Error in sending email');
         }
+
+        return $this;
     }
 
     /**
@@ -148,7 +164,7 @@ class AuthService
      * @param
      * token, password
      */
-    public function passwordReset($data)
+    public function passwordReset($data,$verifying = false)
     {
         try{
             DB::beginTransaction();
@@ -161,7 +177,12 @@ class AuthService
 
             //update password
             $user = User::where('email',$info_data->email)->first();
+
+            if($verifying)
+            $user->email_verified_at = now();
+            else
             $user->password = Hash::make($data['password']);
+
             $user->save();
 
             //delete token
@@ -196,5 +217,31 @@ class AuthService
             throw new Exception($e->getMessage());
         }
     }
+
+    /**
+      * Discription:
+     * @param
+     * User object
+     */
+    public function isVerified($user)
+    {
+        try{
+           return  $user->email_verified_at ? true : false;
+        }catch(Exception $e){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function verifyAccount($token)
+    {
+        try{
+            $data = ['token' => $token];
+            // for verifying email i used the same function with verifying parameter true
+            self::passwordReset($data,true);
+        }catch(Exception $e){
+            throw new Exception($e->getMessage());
+        }
+    }
+
 
 }
