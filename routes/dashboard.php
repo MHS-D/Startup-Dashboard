@@ -14,6 +14,7 @@ Route::middleware(['auth','isVerified'])->group(function () {
 
     // dashboard Home
     Route::get('Home', [DashboardController::class,'index'])->name('dashboard');
+    Route::get('Profile', [DashboardController::class,'profile'])->name('dashboard.profile');
 });
 
 

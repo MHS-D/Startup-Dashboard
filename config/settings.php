@@ -8,6 +8,10 @@ return [
         'main_animation' => 'animate__animated',
         'animationInClass' => '',
         'animationOutClass' => '',
+        'navbarIn' => '',
+        'navbarOut' => '',
+        'toolbarIn' => '',
+        'toolbarOut' => '',
         'timer' => 500,
     ],
 

@@ -7,10 +7,10 @@ function Notification(type, message) {
         title: type == 'error' ? 'Oops...' : (type == 'info' ? 'info' : 'Success'),
         text: message,
         showClass: {
-            popup: 'animate__animated ' + animationIn
+            popup: animationClass(animationIn)
         },
         hideClass: {
-            popup: 'animate__animated ' + animationOut
+            popup: animationClass(animationOut)
         }
     })
 }
@@ -24,18 +24,37 @@ function comingSoon() {
 function AnimateAndRedirect(url, isDashboard = false) {
     let form = document.getElementById("divForm");
 
-    var animationInClass = js.animationInClass;
-    var animationOutClass = js.animationOutClass;
-
-    console.log(animationInClass, animationOutClass)
         // -> removing the class
-    form.classList.remove(animationInClass);
+    form.classList.remove(js.animationInClass);
     // -> and re-adding the class
-    form.classList.add(animationOutClass);
+    form.classList.add(js.animationOutClass);
+
+    if(isDashboard)
+    {
+        let nav = document.getElementById("nav");
+        let toolbar = document.getElementById("toolbar");
+
+        // -> removing the class
+        nav.classList.remove(js.navbarIn);
+        // -> and re-adding the class
+        nav.classList.add(js.navbarOut);
+
+       // -> removing the class
+       toolbar.classList.remove(js.toolbarIn);
+       // -> and re-adding the class
+       toolbar.classList.add(js.toolbarOut);
+    }
 
     setTimeout(function() {
         window.location = url;
     }, js.timer);
+}
+
+//set animation class
+function animationClass($class)
+{
+    $class = 'animate__animated '+$class;
+    return $class;
 }
 
 // check empty validation

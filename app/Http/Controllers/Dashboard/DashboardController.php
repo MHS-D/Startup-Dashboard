@@ -22,5 +22,11 @@ class DashboardController extends Controller
         return view('dashboard.index', $data);
     }
 
+    public function profile()
+    {
+        $data['page_title'] = 'Profile';
+        return view('dashboard.account.profile', $data);
+    }
+
 
 }

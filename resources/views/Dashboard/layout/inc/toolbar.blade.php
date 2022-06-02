@@ -1,6 +1,6 @@
 
                 <!--begin::Toolbar-->
-                <div class="toolbar py-5 py-lg-15" id="kt_toolbar">
+                <div class="toolbar py-5 py-lg-15 {{ config('settings.animation.main_animation') }} {{ config('settings.animation.toolbarIn')  }}" id="toolbar">
                     <!--begin::Container-->
                     <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
                         <!--begin::Page title-->

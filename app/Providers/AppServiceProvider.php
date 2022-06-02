@@ -28,11 +28,31 @@ class AppServiceProvider extends ServiceProvider
         config()->set('settings.animation.animationInClass',request()->is('dashboard/*') ? 'animate__backInUp' : 'animate__bounceInLeft');
         config()->set('settings.animation.animationOutClass',request()->is('dashboard/*') ? 'animate__backOutDown' : 'animate__fadeOutTopRight');
 
-        JavaScript::put([
+        $main_animation = [
             'animationInClass' => config('settings.animation.animationInClass'),
             'animationOutClass' => config('settings.animation.animationOutClass'),
             'timer' => config('settings.animation.timer'),
-        ]);
+        ];
+
+        if(request()->is('dashboard/*'))
+        {
+            config()->set('settings.animation.navbarIn', 'animate__backInRight');
+            config()->set('settings.animation.navbarOut', 'animate__backOutRight');
+            config()->set('settings.animation.toolbarIn', 'animate__backInLeft');
+            config()->set('settings.animation.toolbarOut', 'animate__backOutLeft');
+
+        $dashboard_extra_animations = [
+            'navbarIn' => config('settings.animation.navbarIn'),
+            'navbarOut' => config('settings.animation.navbarOut'),
+            'toolbarIn' => config('settings.animation.toolbarIn'),
+            'toolbarOut' => config('settings.animation.toolbarOut'),
+        ];
+
+        }
+
+        $data = $dashboard_extra_animations ? array_merge($main_animation,$dashboard_extra_animations) : $main_animation;
+
+        JavaScript::put($data);
 
         Schema::defaultStringLength(191);
     }

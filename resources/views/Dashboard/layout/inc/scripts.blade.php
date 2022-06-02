@@ -16,6 +16,10 @@
 <script src={{ asset("dashboard/js/custom/utilities/modals/upgrade-plan.js") }}></script>
 <script src={{ asset("dashboard/js/custom/utilities/modals/create-app.js") }}></script>
 <script src={{ asset("dashboard/js/custom/utilities/modals/users-search.js") }}></script>
+
+{{-- profile page --}}
+<script src={{ asset("dashboard/js/custom/account/settings/signin-methods.js") }}></script>
+
 <!--end::Page Custom Javascript-->
 <!--end::Javascript-->
 
