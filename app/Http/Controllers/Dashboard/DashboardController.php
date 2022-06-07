@@ -28,5 +28,18 @@ class DashboardController extends Controller
         return view('dashboard.account.profile', $data);
     }
 
+    public function settings()
+    {
+        $data['page_title'] = 'Settings';
+        return view('dashboard.settings', $data);
+    }
+
+    public function users()
+    {
+        $data['page_title'] = 'Users';
+        return view('dashboard.users.users', $data);
+    }
+
+
 
 }

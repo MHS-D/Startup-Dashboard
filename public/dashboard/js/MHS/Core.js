@@ -24,13 +24,12 @@ function comingSoon() {
 function AnimateAndRedirect(url, isDashboard = false) {
     let form = document.getElementById("divForm");
 
-        // -> removing the class
+    // -> removing the class
     form.classList.remove(js.animationInClass);
     // -> and re-adding the class
     form.classList.add(js.animationOutClass);
 
-    if(isDashboard)
-    {
+    if (isDashboard) {
         let nav = document.getElementById("nav");
         let toolbar = document.getElementById("toolbar");
 
@@ -39,10 +38,10 @@ function AnimateAndRedirect(url, isDashboard = false) {
         // -> and re-adding the class
         nav.classList.add(js.navbarOut);
 
-       // -> removing the class
-       toolbar.classList.remove(js.toolbarIn);
-       // -> and re-adding the class
-       toolbar.classList.add(js.toolbarOut);
+        // -> removing the class
+        toolbar.classList.remove(js.toolbarIn);
+        // -> and re-adding the class
+        toolbar.classList.add(js.toolbarOut);
     }
 
     setTimeout(function() {
@@ -51,9 +50,8 @@ function AnimateAndRedirect(url, isDashboard = false) {
 }
 
 //set animation class
-function animationClass($class)
-{
-    $class = 'animate__animated '+$class;
+function animationClass($class) {
+    $class = 'animate__animated ' + $class;
     return $class;
 }
 

@@ -20,9 +20,9 @@ class UserAccountSeeder extends Seeder
 
         $user= User::create([
             'name' => 'admin',
-            'email' => 'admin@gmail.com',
+            'email' => env('DEFUALT_ADMIN_EMAIL'),
             'username' => 'administrator',
-            'password' => Hash::make('password'),
+            'password' => Hash::make(env('DEFUALT_ADMIN_PASSWORD')),
             'email_verified_at'=>now(),
             'active'=>1,
         ]);

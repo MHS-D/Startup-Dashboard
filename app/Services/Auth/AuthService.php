@@ -72,7 +72,7 @@ class AuthService
     public function redirectAfterAuthentication($user)
     {
         try{
-            if($user->active == 1){
+            if($user->active){
 
                 $route = route('dashboard');
 

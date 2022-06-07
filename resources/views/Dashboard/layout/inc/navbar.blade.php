@@ -120,6 +120,14 @@
 
                         </div>
 
+                        <div  data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
+                            <span class="menu-link {{ request()->is('dashboard/Users') ? 'active' : '' }} py-3">
+                                <span onclick="return AnimateAndRedirect(route('dashboard.users'),true)" class="menu-title">Users</span>
+                                <span class="menu-arrow d-lg-none"></span>
+                            </span>
+
+                        </div>
+
                     </div>
                     <!--end::Menu-->
                 </div>

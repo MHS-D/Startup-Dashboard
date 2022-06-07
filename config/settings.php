@@ -3,7 +3,11 @@
 use Illuminate\Http\Request;
 
 return [
+    'defualt' => [
+        'title' => 'MHS-Startup',
+    ],
 
+    //check AnimationServiceProvider to change animation in the whole project
     'animation' => [
         'main_animation' => 'animate__animated',
         'animationInClass' => '',
