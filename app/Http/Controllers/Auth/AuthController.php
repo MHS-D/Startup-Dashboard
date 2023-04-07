@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use JavaScript;
 
-
 class AuthController extends Controller
 {
     use GeneralTrait;
@@ -45,7 +44,7 @@ class AuthController extends Controller
             return $this->authService->redirectAfterAuthentication($user);
 
         }catch(Exception $e){
-            throw ValidationException::withMessages([$e->getMessage()]);
+            $this->ExceptionRedirect($e->getMessage());
         }
 
     }

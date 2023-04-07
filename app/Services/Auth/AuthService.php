@@ -99,7 +99,6 @@ class AuthService
      */
     public function Role($role,$user,$action)
     {
-        // dd($role,$user,$action);
         try {
             if(!in_array($action, config('settings.roles.actions')) || !in_array($role, config('settings.roles.names')))
                 throw new Exception('Invalid action or role');

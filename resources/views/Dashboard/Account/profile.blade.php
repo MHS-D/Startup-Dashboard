@@ -88,7 +88,6 @@
                                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                         <!--end::Indicator-->
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#kt_modal_offer_a_deal">Hire Me</a>
                                     <!--begin::Menu-->
                                     <div class="me-0">
                                         <button class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">

@@ -12,12 +12,13 @@ trait GeneralTrait {
     function ExceptionRedirect($ExceptionMessage)
     {
         if(request()->wantsJson() && !request()->ajax()){
-            return response()->json(['error' => $ExceptionMessage], 500);
+            return response()->json(['error' => $ExceptionMessage], 300);
         }
         throw ValidationException::withMessages([$ExceptionMessage]);
     }
 
 
 }
+
 
 ?>
